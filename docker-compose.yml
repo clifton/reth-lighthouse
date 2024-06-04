@@ -1,4 +1,3 @@
-version: '3.9'
 name: 'reth'
 
 services:
@@ -11,8 +10,8 @@ services:
       - '8545:8545' # rpc
       - '8551:8551' # engine
     volumes:
-      - rethdata_mainnet:/root/.local/share/reth/mainnet/db
-      - rethdata_sepolia:/root/.local/share/reth/sepolia/db
+      - rethdata_mainnet:/root/.local/share/reth/mainnet
+      - rethdata_sepolia:/root/.local/share/reth/sepolia
       - rethlogs:/root/rethlogs
       - ./jwttoken:/root/jwt:ro
     # For Sepolia, replace `--chain mainnet` with `--chain sepolia`
@@ -43,7 +42,7 @@ services:
 
   grafana:
     restart: unless-stopped
-    image: grafana/grafana:10.1.0
+    image: grafana/grafana
     depends_on:
       - reth
       - prometheus
@@ -122,37 +121,13 @@ services:
 volumes:
   rethdata_mainnet:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/mainnet
   rethdata_sepolia:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/sepolia
   rethlogs:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/logs
   prometheusdata:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/prom
   grafanadata:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/grafana
   lighthousedata:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/.reth/beacon
