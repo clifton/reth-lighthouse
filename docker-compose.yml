@@ -64,7 +64,7 @@ services:
 
   lighthouse:
     restart: unless-stopped
-    image: sigp/lighthouse:latest-modern
+    image: sigp/lighthouse:latest
     depends_on:
       - reth
       - mev-boost
